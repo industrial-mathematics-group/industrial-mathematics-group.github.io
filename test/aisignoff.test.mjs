@@ -26,3 +26,18 @@ test('the builder writes the SIGNOFF.toml keys each level needs', () => {
   assert.match(ai.toml, /AI-Reviewed-by = ".*new session"/);
   assert.match(ai.command, /^aisignoff annotate src\/ -g G2 -H H2 -a A2/);
 });
+
+test('the builder writes the lines for a pull request description and the review gap', () => {
+  const d = describe({ generation: 3, human: 1, ai: 1 });
+  assert.equal(d.gap, 2);
+  assert.equal(describe({ generation: 0, human: 2, ai: 0 }).gap, 0);
+  assert.deepEqual(d.lines.split('\n'), [
+    'AI-Generation: G3',
+    'Human-Review: H1',
+    'AI-Review: A1',
+    'Assisted-by: Claude Opus 5.5 (Anthropic)',
+    'Reviewed-by: Jane Doe',
+    'AI-Reviewed-by: Claude Opus 5.5 (Anthropic), self-check by the generating session',
+  ]);
+  assert.doesNotMatch(describe({ generation: 0, human: 2, ai: 0 }).lines, /Assisted-by|AI-Reviewed-by/);
+});

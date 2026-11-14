@@ -22,6 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0   # the whole history: aisignoff declares each line by the commit that landed it
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
@@ -34,6 +36,16 @@ jobs:
         run: node scripts/sync-zenodo.mjs
       - name: Update the AI declaration badges
         run: node scripts/sync-signoff-badges.mjs
+      # The folder report of this repository's AI declarations, published at /signoff/ and linked from
+      # /explore/ai-declarations/. Keep the version in step with the organisation's File-signoff workflow.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Write the AI declaration report
+        run: |
+          pip install "aisignoff==1.0.0rc2"
+          mkdir -p public/signoff
+          aisignoff report --html public/signoff/index.html --with-source --title "Industrial Mathematics Group website"
       # The site is served at the root of the custom domain, or under /<repository>/ on
       # github.io while none is set. The build reads the address from PAGES_URL.
       - name: Read the GitHub Pages address
