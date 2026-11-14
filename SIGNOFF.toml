@@ -13,7 +13,7 @@ merge-method = "merge"
 # publication entries, a Dependabot update; about 75 lines). How they were made has to be filled in by a person.
 [[annotations]]
 path = "**"
-AI-Generation = "TODO"
-Human-Review = "TODO"
-AI-Review = "TODO"
-Reviewed-by = "TODO"
+AI-Generation = "G3"
+Human-Review = "H0"
+AI-Review = "A1"
+Reviewed-by = "blhackslash <dev@blackslash.win>"
