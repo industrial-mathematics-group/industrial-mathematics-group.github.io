@@ -18,3 +18,4 @@ Human-Review = "H0"
 AI-Review = "A1"
 Reviewed-by = "blhackslash <dev@blackslash.win>"
 Assisted-by = ["Claude Opus 5.5 (Anthropic)"]
+AI-Reviewed-by = ["Claude Opus 5.5 (Anthropic)"]
