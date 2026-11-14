@@ -12,7 +12,7 @@ export const REPOSITORIES = [
   'PDEStudio.jl',
   'aisignoff',
   'meshfree-solver-paper',
-  'img-website',
+  'industrial-mathematics-group.github.io',
 ];
 export const AXES = ['generation', 'human-review', 'ai-review'];
 // The badge files: per kind, the prefixes in order of preference and the name of each axis.

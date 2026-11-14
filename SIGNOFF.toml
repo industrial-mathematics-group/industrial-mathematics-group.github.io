@@ -1,0 +1,19 @@
+# AI declarations of this repository, checked by aisignoff (https://github.com/industrial-mathematics-group/aisignoff).
+# Levels: https://github.com/industrial-mathematics-group/.github/blob/main/.github/CONTRIBUTING.md#ai-assisted-contributions
+version = 3
+
+# Each line is declared by the commit that landed it on main: for a pull request, its merge commit, whose
+# message is the pull request's title and description with the ticked AI declaration.
+[history]
+enabled = true
+merge-method = "merge"
+
+# The fallback for lines whose commit declares nothing. On 2026-11-14 these were the lines of the initial
+# commit (604ff9f, about 2000 lines) and of direct commits on main (the Claude workflow, the team and
+# publication entries, a Dependabot update; about 75 lines). How they were made has to be filled in by a person.
+[[annotations]]
+path = "**"
+AI-Generation = "TODO"
+Human-Review = "TODO"
+AI-Review = "TODO"
+Reviewed-by = "TODO"
