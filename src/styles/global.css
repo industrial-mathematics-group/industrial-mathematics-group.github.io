@@ -562,7 +562,7 @@ button:hover {
   gap: 1.25rem;
 }
 
-/* AI declarations: the three scales, the builder and the badges. Each axis has its colour. */
+/* AI declarations: the three scales, the builder and the report. Each axis has its colour. */
 .scale-generation {
   --axis: var(--blue);
 }
@@ -685,78 +685,16 @@ button:hover {
   margin: 0;
 }
 
-.badge-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  gap: 1.5rem 2rem;
-  margin-top: 1rem;
-}
-
-.badge-repo h3 {
-  font-size: 1.1rem;
-}
-
-.badge-kind {
-  margin-top: 0.6rem;
-}
-
-.badge-kind-title {
-  margin: 0 0 0.35rem;
-  font-family: var(--display);
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.badge-kind-title span {
-  color: var(--muted);
-  font-weight: 400;
-}
-
-.decl-badge {
-  display: grid;
-  grid-template-columns: 7.5rem minmax(0, 1fr);
-  margin-top: 3px;
-  font-family: var(--display);
-  font-size: 0.8rem;
-  line-height: 1.6rem;
-}
-
-.decl-badge-label {
-  padding-inline: 0.5rem;
-  background: var(--ink);
-  color: var(--bg);
-}
-
-.decl-badge-bar {
-  display: flex;
-  min-width: 0;
-}
-
-.share {
-  overflow: hidden;
-  padding-inline: 0.35rem;
-  background: var(--axis);
-  color: var(--on-accent);
-  white-space: nowrap;
-}
-
-.share-0 {
-  background: color-mix(in srgb, var(--axis) 30%, var(--bg));
-  color: var(--ink);
-}
-
-.share-1 {
-  background: color-mix(in srgb, var(--axis) 55%, var(--bg));
-  color: var(--ink);
-}
-
-.share-2 {
-  background: color-mix(in srgb, var(--axis) 80%, var(--bg));
-}
-
-.share.share-undeclared {
-  background: var(--muted);
-  color: var(--on-accent);
+/* The report needs more room than the text: up to the width of the PDEStudio panel, centred on the page. */
+.signoff-report {
+  display: block;
+  position: relative;
+  left: 50%;
+  width: min(96rem, 100vw - 2 * var(--gutter));
+  height: min(85vh, 56rem);
+  margin-top: 1.5rem;
+  border: 1px solid var(--rule);
+  transform: translateX(-50%);
 }
 
 /* PDEStudio in the browser: the control panel of the studio and its plots */
