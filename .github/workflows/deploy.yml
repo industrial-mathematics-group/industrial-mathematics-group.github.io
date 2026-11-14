@@ -34,9 +34,7 @@ jobs:
         run: node scripts/check-launch.mjs
       - name: Update Zenodo records
         run: node scripts/sync-zenodo.mjs
-      - name: Update the AI declaration badges
-        run: node scripts/sync-signoff-badges.mjs
-      # The folder report of this repository's AI declarations, published at /signoff/ and linked from
+      # The folder report of this repository's AI declarations, published at /signoff/ and shown on
       # /explore/ai-declarations/. Keep the version in step with the organisation's File-signoff workflow.
       - uses: actions/setup-python@v5
         with:

@@ -33,7 +33,7 @@ The Node.js version is set in `.nvmrc`, and all workflows read it from there. To
 | AI declarations | `src/pages/explore/ai-declarations.astro`, levels and rules in `src/lib/aisignoff.ts` (keep in step with the AI policy and aisignoff) |
 | This repository's own AI declarations | `SIGNOFF.toml` (see *Pull requests* below) |
 
-`src/data/zenodo.json` is written by `scripts/sync-zenodo.mjs` and `src/data/signoff-badges.json` by `scripts/sync-signoff-badges.mjs` during deployment. Don't edit them by hand.
+`src/data/zenodo.json` is written by `scripts/sync-zenodo.mjs` during deployment. Don't edit it by hand.
 
 `public/pdestudio/*.json` is written by `tools/pdestudio-demo/export.jl` from the built-in examples of PDEStudioCore (the version pinned in its `Project.toml`). Don't edit it by hand; to update it, raise that version and run `julia --project=tools/pdestudio-demo tools/pdestudio-demo/export.jl` (instantiate the environment first). Keep `public/js/pdestudio/data.js` in step with the format.
 
@@ -60,7 +60,7 @@ The Node.js version is set in `.nvmrc`, and all workflows read it from there. To
 
 All changes go through a PR into `main` and land as a merge commit whose message is the PR title and description. Fill in the AI declaration in the PR template honestly, using the [group's AI policy](https://github.com/industrial-mathematics-group/.github/blob/main/.github/CONTRIBUTING.md#ai-assisted-contributions). A person must take responsibility for each change.
 
-The declaration is also what aisignoff reads: `SIGNOFF.toml` enables `[history]`, so the lines a PR changes take the levels ticked in its description (the merge commit's message). Lines whose commit declares nothing fall back to the annotations in `SIGNOFF.toml`. The *File-signoff* check runs `aisignoff lint` on every push and PR; each deployment publishes the folder report at `/signoff/`. A commit on a PR branch may say a higher `AI-Generation` for the lines it wrote (e.g. an agent's commit with `AI-Generation: G3` and `Assisted-by: …` lines in its message).
+The declaration is also what aisignoff reads: `SIGNOFF.toml` enables `[history]`, so the lines a PR changes take the levels ticked in its description (the merge commit's message). Lines whose commit declares nothing fall back to the annotations in `SIGNOFF.toml`. The *File-signoff* check runs `aisignoff lint` on every push and PR; each deployment publishes the folder report at `/signoff/`, which the AI declarations page shows in a frame (only when the build finds `public/signoff/index.html`; to see it locally, run `aisignoff report --html public/signoff/index.html --with-source` first). A commit on a PR branch may say a higher `AI-Generation` for the lines it wrote (e.g. an agent's commit with `AI-Generation: G3` and `Assisted-by: …` lines in its message).
 
 The `site-preview` artifact on each PR contains the built site.
 
