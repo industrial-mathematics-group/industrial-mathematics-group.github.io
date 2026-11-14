@@ -326,6 +326,26 @@ button:hover {
   font-size: 1.5rem;
 }
 
+.prose table {
+  width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.prose th,
+.prose td {
+  padding: 0.4rem 0.6rem 0.4rem 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  font-family: var(--display);
+  font-weight: 600;
+}
+
 .prose .katex-display {
   overflow-x: auto;
   overflow-y: hidden;
