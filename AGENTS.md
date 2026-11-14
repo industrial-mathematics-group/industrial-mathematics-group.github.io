@@ -31,6 +31,7 @@ The Node.js version is set in `.nvmrc`, and all workflows read it from there. To
 | PDEStudio in the browser | `src/pages/explore/pdestudio.astro`, `public/js/pdestudio/` (panel rules in `logic.js`), data in `public/pdestudio/` |
 | HyperCloud results | `src/pages/explore/hypercloud.astro`, images in `public/hypercloud/` |
 | AI declarations | `src/pages/explore/ai-declarations.astro`, levels and rules in `src/lib/aisignoff.ts` (keep in step with the AI policy and aisignoff) |
+| This repository's own AI declarations | `SIGNOFF.toml` (see *Pull requests* below) |
 
 `src/data/zenodo.json` is written by `scripts/sync-zenodo.mjs` and `src/data/signoff-badges.json` by `scripts/sync-signoff-badges.mjs` during deployment. Don't edit them by hand.
 
@@ -51,13 +52,15 @@ The Node.js version is set in `.nvmrc`, and all workflows read it from there. To
 - Use only the colour and font variables in `global.css`. Colours come from the logo kit in the org's `.github` repository.
 - Keep the site static: no `output: 'server'`, adapters, analytics, cookies, or fonts and scripts from third-party hosts.
 - Astro 7 rejects unclosed tags, and needs valid nesting (no `<div>` inside `<p>`).
-- Until the custom domain is set, GitHub Pages serves the site under `/img-website/`. In `.astro` files, write internal links and files from `public/` with `url()` from `src/data/site.ts`, e.g. `href={url('/software/')}`. In Markdown, plain links like `/software/` are fine; the build adds the base path. `npm run check` doesn't catch a missing `url()`, but the check workflow does.
+- The build can run under a base path (GitHub Pages serves a repository that isn't the organisation site under `/<repository>/`, and the check workflow builds that way). In `.astro` files, write internal links and files from `public/` with `url()` from `src/data/site.ts`, e.g. `href={url('/software/')}`. In Markdown, plain links like `/software/` are fine; the build adds the base path. `npm run check` doesn't catch a missing `url()`, but the check workflow does.
 - Every page must work without JavaScript. The two demos (the front page and PDEStudio in the browser) are the only exceptions, and their text must still make sense without it.
 - The demo must stay pausable and must not start moving under `prefers-reduced-motion`.
 
 ## Pull requests
 
-All changes go through a PR into `main` and are squash-merged. Fill in the AI declaration in the PR template honestly, using the [group's AI policy](https://github.com/industrial-mathematics-group/.github/blob/main/.github/CONTRIBUTING.md#ai-assisted-contributions). A person must take responsibility for each change.
+All changes go through a PR into `main` and land as a merge commit whose message is the PR title and description. Fill in the AI declaration in the PR template honestly, using the [group's AI policy](https://github.com/industrial-mathematics-group/.github/blob/main/.github/CONTRIBUTING.md#ai-assisted-contributions). A person must take responsibility for each change.
+
+The declaration is also what aisignoff reads: `SIGNOFF.toml` enables `[history]`, so the lines a PR changes take the levels ticked in its description (the merge commit's message). Lines whose commit declares nothing fall back to the annotations in `SIGNOFF.toml`. The *File-signoff* check runs `aisignoff lint` on every push and PR; each deployment publishes the folder report at `/signoff/`. A commit on a PR branch may say a higher `AI-Generation` for the lines it wrote (e.g. an agent's commit with `AI-Generation: G3` and `Assisted-by: …` lines in its message).
 
 The `site-preview` artifact on each PR contains the built site.
 

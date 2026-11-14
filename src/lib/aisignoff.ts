@@ -35,8 +35,12 @@ export interface Described {
   label: string;
   sentence: string;
   problems: string[];
+  // "Key: value" lines for a pull request description or a commit message ([history] in SIGNOFF.toml).
+  lines: string;
   toml: string;
   command: string;
+  // The review gap of aisignoff's folder report: generation level minus human review level, never below 0.
+  gap: number;
 }
 
 const level = (axis: Axis, i: number) => LEVELS[axis][i].level;
@@ -55,7 +59,16 @@ export function describe(d: Declaration, path = 'src/**'): Described {
   const a = level('ai', d.ai);
   const sentence = `${capitalise(LEVELS.generation[d.generation].phrase)}, ${LEVELS.human[d.human].phrase}, and ${LEVELS.ai[d.ai].phrase}.`;
   const assisted = d.generation > 0 ? 'Claude Opus 5.5 (Anthropic)' : null;
-  const aiReviewer = ['', 'Claude Opus 5.5 (Anthropic), same session', 'Claude Opus 5.5 (Anthropic), new session', 'GPT-5 (OpenAI), benchmark against reference solutions'][d.ai] || null;
+  const aiReviewer =
+    ['', 'Claude Opus 5.5 (Anthropic), self-check by the generating session', 'Claude Opus 5.5 (Anthropic), new session', 'GPT-5 (OpenAI), benchmark against reference solutions'][d.ai] || null;
+  const lines = [
+    `AI-Generation: ${g}`,
+    `Human-Review: ${h}`,
+    `AI-Review: ${a}`,
+    ...(assisted ? [`Assisted-by: ${assisted}`] : []),
+    'Reviewed-by: Jane Doe',
+    ...(aiReviewer ? [`AI-Reviewed-by: ${aiReviewer}`] : []),
+  ].join('\n');
   const toml = [
     '[[annotations]]',
     `path = "${path}"`,
@@ -73,7 +86,7 @@ export function describe(d: Declaration, path = 'src/**'): Described {
     ...(aiReviewer ? [`    --ai-reviewed-by "${aiReviewer}"`] : []),
     '    --reviewed-by "Jane Doe"',
   ].join(' \\\n');
-  return { label: `${g} · ${h} · ${a}`, sentence, problems: problems(d), toml, command };
+  return { label: `${g} · ${h} · ${a}`, sentence, problems: problems(d), lines, toml, command, gap: Math.max(0, d.generation - d.human) };
 }
 
 const capitalise = (text: string) => text[0].toUpperCase() + text.slice(1);
